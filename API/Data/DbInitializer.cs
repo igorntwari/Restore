@@ -6,17 +6,17 @@ namespace API.Data;
 
 public class DbInitializer
 {
-    public void InitDb(WebApplication app)
+    public static void InitDb(WebApplication app)
     {
         using var scope = app.Services.CreateAsyncScope();
         var context = scope.ServiceProvider.GetRequiredService<StoreContext>()
          ?? throw new InvalidOperationException("Failed to deliver stored context");
 
-        seedData(context);
+        SeedData(context);
 
     }
 
-    private void seedData(StoreContext context)
+    private static void SeedData(StoreContext context)
     {
         context.Database.Migrate();
         if (context.Products.Any()) return;
